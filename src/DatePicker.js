@@ -31,6 +31,7 @@ const DatePicker = ({
   const calendarContainer = useRef(null);
   const dateInput = useRef(null);
   const [isCalendarOpen, setCalendarVisiblity] = useState(false);
+  const [fade, setFade] = useState(''); // fixme
 
   const handleMouseMove = e => {
     const { clientX: x, clientY: y } = e;
@@ -53,7 +54,16 @@ const DatePicker = ({
     if (shouldCloseCalendar) dateInput.current.blur();
   }, [selectedDay, isCalendarOpen]);
 
-  const toggleCalendar = () => setCalendarVisiblity(!isCalendarOpen);
+  const toggleCalendar = () => {
+    // fixme
+    setFade(!isCalendarOpen ? 'fadein' : 'fadeout');
+    setTimeout(
+      () => {
+        setCalendarVisiblity(!isCalendarOpen);
+      },
+      !isCalendarOpen ? 300 : 300,
+    );
+  };
 
   // keep calendar open if clicked inside the calendar
   const handleBlur = e => {
@@ -92,7 +102,7 @@ const DatePicker = ({
   return (
     <div className={`DatePicker ${wrapperClassName}`}>
       {isCalendarOpen && (
-        <div ref={calendarContainer} className="DatePicker__calendarContainer">
+        <div ref={calendarContainer} className={`DatePicker__calendarContainer ${fade}`}>
           <Calendar
             onDaySelect={handleDaySelect}
             selectedDay={selectedDay}
