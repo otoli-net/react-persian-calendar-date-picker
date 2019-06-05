@@ -59,10 +59,13 @@ const DatePicker = ({
     // fixme
     setFade(!isCalendarOpen ? 'fadein' : 'fadeout');
     setTimeout(
-      () => {
-        setCalendarVisiblity(!isCalendarOpen);
-      },
-      !isCalendarOpen ? 300 : 300,
+      setTimeout(
+        () => {
+          setCalendarVisiblity(!isCalendarOpen);
+        },
+        !isCalendarOpen ? 300 : 400,
+      ),
+      !isCalendarOpen ? 0 : 300,
     );
   };
 
